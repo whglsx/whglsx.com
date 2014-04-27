@@ -17,4 +17,4 @@ if [ $# -eq 1 ]
 
       # Push source and build repos.
       git push origin master
-      git subtree push --prefix=public https://github.com/whglsx/whglsx.git gh-pages
+      git subtree push --prefix=public https://github.com/whglsx/sitegh-pages
