@@ -1,0 +1,41 @@
+{{ template "chrome/head.html" .}}
+{{ template "chrome/header.html" .}}
+
+<div class="row">
+    <div class="col-md-3">
+	    <div class="panel panel-default">
+		<div class="panel-heading">产品分类</div>
+		<div class="panel-body">
+		    <ul class="list-unstyled">
+			{{ range $key, $value := .Site.Indexes.category}}
+			<li><a href="/category/{{ $key | urlize}}">{{$key}}</a></li>
+			{{ end}}
+		    </ul>
+		</div>
+	    </div>
+
+    </div>
+
+    <div class="col-md-9">
+	{{ with .Params.thumbnail }}
+	<div class="panel panel-default">
+	    <div class="panel-heading"> 产品外观</div>
+	    <div class="panel-body">
+	<a href="#" class="thumbnail">
+	    <img src="/product_img/{{.}}" alt="...">
+	</a>
+	    </div>
+    </div>
+	{{end}}
+
+	<div class="panel panel-default">
+	    <div class="panel-heading"> 产品说明 </div>
+	    <div class="panel-body">
+		{{.Content}}
+	    </div>
+	</div>
+    </div>
+
+</div>
+
+{{ template "chrome/footer.html" .}}

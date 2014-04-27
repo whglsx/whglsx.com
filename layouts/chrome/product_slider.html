@@ -1,0 +1,11 @@
+<div class="well well-sm"> <!-- Post-specific stats -->
+    <strong>Categories</strong>
+    <ul class="list-unstyled">
+	{{ range .Params.categories }}
+	<li><a href="/categories/{{ . | urlize }}">{{ . }}</a></li>
+	{{ end }}
+    </ul>
+    <hr>
+    <strong>Tags</strong><br>
+    {{ range .Params.tags }}<a class="label label-default" href="/tags/{{ . | urlize }}">{{ . }}</a> {{ end }}
+</div>

@@ -1,0 +1,14 @@
+
+<li>
+    <a href="{{.Permalink}}" class="thumbnail">
+	{{ with .Params.thumbnail }}
+	<img src="/product_img/{{.}}" alt="...">
+	{{end}}
+	<div class="caption">
+	    {{.Title}}
+	</div>
+	<p>
+	    {{.Summary}}
+	</p>
+    </a>
+</li>
