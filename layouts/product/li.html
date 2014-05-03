@@ -1,5 +1,5 @@
 
-<li>
+<div class="col-md-3">
     <a href="{{.RelPermalink}}" class="thumbnail">
 	{{ with .Params.thumbnail }}
 	<img src="/product_img/{{.}}" alt="...">
@@ -7,8 +7,5 @@
 	<div class="caption">
 	    {{.Title}}
 	</div>
-	<p>
-	    {{.Summary}}
-	</p>
     </a>
-</li>
+</div>

@@ -1,11 +1,10 @@
-<div class="well well-sm"> <!-- Post-specific stats -->
-    <strong>Categories</strong>
-    <ul class="list-unstyled">
-	{{ range .Params.categories }}
-	<li><a href="/categories/{{ . | urlize }}">{{ . }}</a></li>
-	{{ end }}
-    </ul>
-    <hr>
-    <strong>Tags</strong><br>
-    {{ range .Params.tags }}<a class="label label-default" href="/tags/{{ . | urlize }}">{{ . }}</a> {{ end }}
+<div class="panel panel-default">
+    <div class="panel-heading">产品分类</div>
+    <div class="panel-body">
+	<ul class="list-unstyled">
+	    {{ range $key, $value := .Site.Indexes.categories}}
+	    <li><a href="/categories/{{ $key | urlize}}">{{$key}}</a></li>
+	    {{ end}}
+	</ul>
+    </div>
 </div>

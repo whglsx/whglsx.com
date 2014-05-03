@@ -1,5 +1,6 @@
 baseurl = "http://whglsx.com"
 company = "武汉冠龙顺心设备流体公司"
 title = "武汉沪航"
+
 [indexes]
-    category = "Category"
+    category = "categories"

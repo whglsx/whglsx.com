@@ -28,7 +28,7 @@ func NewCategory(name, dirpath string) *Category {
 	if err != nil {
 		panic(err)
 	}
-	reDoc := regexp.MustCompile(`(.*)\.html`)
+	reDoc := regexp.MustCompile(`(.*)\.doc`)
 	reThumbnail := regexp.MustCompile(`(.*)_head\.*`)
 	reCImgs := regexp.MustCompile(`(.*)_(\d)+\..*`)
 	for _, info := range infos {
@@ -79,7 +79,7 @@ func (c *Category) Gen(dir string) {
 		}
 		p.WriteHeader(f)
 		if p.ContentDoc != "" {
-			p.WriteContentHtml(f)
+			p.WriteContentDoc(f)
 		}
 		if p.Thumbnail != "" {
 			copyToResource(filepath.Join(c.path, p.Thumbnail), dir)
@@ -120,16 +120,25 @@ func (p *Product) WriteHeader(w io.Writer) {
 	c += "]"
 	io.WriteString(w, fmt.Sprintf(`---
 Title: "%s"
-Category:
-   - "%s"
-Thumbnail: "%s"
-ContentImage: %s
+categories:
+    - "%s"
+thumbnail: "%s"
+contentImages: %s
 ---
 `, p.Name, p.category, p.Thumbnail, c))
 }
 
-func (p *Product) WriteContentHtml(w io.Writer) {
-	cmd := exec.Command("pandoc", "-f", "html", "-t", "markdown_github", p.ContentDoc)
+func (p *Product) WriteContentDoc(w io.Writer) {
+	basename := filepath.Base(p.ContentDoc)
+	basedir := filepath.Dir(p.ContentDoc)
+	basename = basename[:len(basename)-4]
+	fmt.Println("BaseDIR:", basedir)
+	htmlFile := filepath.Join(basedir, basename+".html")
+	c := exec.Command("soffice", "--headless", "--convert-to", "html", p.ContentDoc)
+	os.Chdir(basedir)
+	c.Start()
+	c.Wait()
+	cmd := exec.Command("pandoc", "-f", "html", "-t", "markdown_github", htmlFile)
 	bytes, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Println("ER:", string(bytes))
@@ -139,12 +148,13 @@ func (p *Product) WriteContentHtml(w io.Writer) {
 	if err != nil {
 		panic(err)
 	}
+	exec.Command("rm", htmlFile)
 }
 
 func CopyResource() {
 }
 func main() {
-	base := "/dev/shm/x"
+	base := "/home/snyh/prj/whglsx/data"
 	infos, err := ioutil.ReadDir(base)
 
 	if err != nil {

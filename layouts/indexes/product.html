@@ -1,22 +1,46 @@
-{{ template "chrome/head.html" }}
-{{ template "chrome/header.html" }}
+{{ template "chrome/head.html" . }}
+{{ template "chrome/header.html" . }}
 
-<div class="row">
+<link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+<link rel="stylesheet" href="http://blueimp.github.io/Bootstrap-Image-Gallery/css/bootstrap-image-gallery.css">
 
-    <div class="col-md-9">
-	<ul class="list-unstyled">
-	    {{ range .Data.Pages }}
-	    {{ .Render "li" }}
-	    {{ end}}
-	</ul>
+<ul class="nav nav-tabs">
+    <li><a href="#楼宇水系统阀门及沟槽管件及消防" data-toggle="tab">楼宇水系统阀门&沟槽管件及消防</a></li>
+    <li class="active"><a href="#市政水厂水系统阀门及管配件" data-toggle="tab">市政水厂水系统阀门及管配件</a></li>
+    <li><a href="#铜阀门" data-toggle="tab">铜阀门</a></li>
+    <li><a href="#高中压阀门" data-toggle="tab">高中压阀门</a></li>
+</ul>
 
+<div class="tab-content">
+    <div class="tab-pane" id="楼宇水系统阀门及沟槽管件及消防">
+	{{range first 8 .Site.Indexes.categories.楼宇水系统阀门及沟槽管件及消防.Pages}}
+	<a href={{.RelPermalink}}><img class="thumbnail" src="/product_img/{{.Params.thumbnail}}"></a>
+	{{end}}
     </div>
 
-    <div class="col-md-3">
-	{{ template "chrome/product_slider.html" . }}
+    <div class="tab-pane active" id="市政水厂水系统阀门及管配件">
+	{{range first 8 .Site.Indexes.categories.市政水厂水系统阀门及管配件.Pages}}
+	<a href={{.RelPermalink}}><img class="thumbnail" src="/product_img/{{.Params.thumbnail}}"></a>
+	{{end}}
     </div>
 
+
+    <div class="tab-pane" id="铜阀门">
+	{{range first 8 .Site.Indexes.categories.铜阀门.Pages}}
+	<a href={{.RelPermalink}}><img class="thumbnail" src="/product_img/{{.Params.thumbnail}}"></a>
+	{{end}}
+    </div>
+
+    <div class="tab-pane" id="高中压阀门">
+	{{range first 8 .Site.Indexes.categories.高中压阀门.Pages}}
+	<a href={{.RelPermalink}}><img class="thumbnail" src="/product_img/{{.Params.thumbnail}}"></a>
+	{{end}}
+    </div>
 </div>
 
+{{ template "chrome/footer.html" . }}
 
-{{ template "chrome/footer.html" }}
+<script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
+<script src="http://blueimp.github.io/Bootstrap-Image-Gallery/js/bootstrap-image-gallery.js"></script>
+{{ template "chrome/footer2.html" . }}
+

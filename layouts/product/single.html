@@ -3,17 +3,16 @@
 
 <div class="row">
     <div class="col-md-3">
-	    <div class="panel panel-default">
-		<div class="panel-heading">产品分类</div>
-		<div class="panel-body">
-		    <ul class="list-unstyled">
-			{{ range $key, $value := .Site.Indexes.category}}
-			<li><a href="/category/{{ $key | urlize}}">{{$key}}</a></li>
-			{{ end}}
-		    </ul>
-		</div>
-	    </div>
+	{{ template "chrome/product_slider.html" . }}
 
+    {{$c := .Site.Indexes.categories}}
+    {{range first 1 .Params.categories}}
+    {{range index $c .}}
+    <ul>
+	<li><a href={{.Page.RelPermalink}}>{{.Page.Title}}</a></li>
+    </ul>
+    {{end}}
+    {{end}}
     </div>
 
     <div class="col-md-9">
@@ -31,6 +30,9 @@
 	<div class="panel panel-default">
 	    <div class="panel-heading"> 产品说明 </div>
 	    <div class="panel-body">
+		{{ range .Params.contentimages }}
+		<img src="/product_img/{{.}}">
+		{{end}}
 		{{.Content}}
 	    </div>
 	</div>
