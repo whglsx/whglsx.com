@@ -82,12 +82,20 @@ func (c *Category) Gen(dir string) {
 			p.WriteContentHtml(f)
 		}
 		if p.Thumbnail != "" {
-			cmd := exec.Command("cp", filepath.Join(c.path, p.Thumbnail), filepath.Join(dir, "static", "product_img"))
-			opb, err := cmd.CombinedOutput()
-			if err != nil {
-				fmt.Println("E:", err, string(opb))
-			}
+			copyToResource(filepath.Join(c.path, p.Thumbnail), dir)
+		} else {
+			fmt.Println("Can't find head!", c.Name, p.Name)
 		}
+		for _, img := range p.ContentImage {
+			copyToResource(filepath.Join(c.path, img), dir)
+		}
+	}
+}
+func copyToResource(path, base string) {
+	cmd := exec.Command("cp", path, filepath.Join(base, "static", "product_img"))
+	opb, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Println("E:", err, string(opb))
 	}
 }
 
@@ -111,7 +119,7 @@ func (p *Product) WriteHeader(w io.Writer) {
 	}
 	c += "]"
 	io.WriteString(w, fmt.Sprintf(`---
-Title: "%s",
+Title: "%s"
 Category:
    - "%s"
 Thumbnail: "%s"
