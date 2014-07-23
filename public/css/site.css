@@ -1,3 +1,8 @@
 body {
     background:#f7f7f9
 }
+
+p img {
+    max-width: 800px;
+    max-height: 600px;
+}

@@ -4,6 +4,7 @@
 <div class="page-header"> 
     <img src="/logo.gif">
     <span >武汉分公司</span>
+    <img src="/img/glsx.gif">
 </div>
 
 <ul class="nav nav-tabs">
@@ -14,6 +15,9 @@
     </li>
     <li {{if isset .Params "nav_product"}}class="active"{{end}}>
 	<a href="/categories/铜阀门">产品介绍</a>
+    </li>
+    <li {{if isset .Params "nav_credentails"}}class="active"{{end}}>
+	<a href="/credentails">企业资质</a>
     </li>
     <li {{if isset .Params "nav_contact"}}class="active"{{end}}>
 	<a href="/contact">联系我们</a>
